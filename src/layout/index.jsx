@@ -37,10 +37,6 @@ const Layout = ({ children }) => {
             size='sm'
             w={80}
             borderColor='purple.900'
-            _onFocus={{
-              outline: 'none',
-              boxShadow: 'none',
-            }}
           >
             <Input
               placeholder='Pesquisar'
@@ -60,12 +56,12 @@ const Layout = ({ children }) => {
           <HStack spacing={5} h='100%'>
             <HStack>
               <Text>Profile</Text>
-              <Icon as={IoPersonOutline} w={6} h={6} color='gray.50' />
+              <Icon as={IoPersonOutline} w={4.5} h={4.5} color='gray.50' />
             </HStack>
-            <Divider orientation='vertical' h='40%' />
+            <Divider orientation='vertical' h='25%' />
             <HStack>
               <Text>Logout</Text>
-              <Icon as={IoExitOutline} w={7} h={7} color='gray.50' />
+              <Icon as={IoExitOutline} w={5.5} h={5.5} color='gray.50' />
             </HStack>
           </HStack>
         </Flex>
