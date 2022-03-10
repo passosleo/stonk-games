@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, Text, Icon, HStack } from "@chakra-ui/react";
+import { IoLogoWindows } from 'react-icons/io5';
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
+import { BiWorld } from 'react-icons/bi';
 
 const Home = () => {
   const [games, setGames] = useState([]);
+  const [favorite, setFavorite] = useState(null);
 
   useEffect(() => {
-    Axios.get("https://www.freetogame.com/api/games").then(
+    Axios.get("https://www.freetogame.com/api/games?platform=all").then(
       (response) => {
         setGames(response.data.slice(14, 32))
       }
     );
   }, [])
   console.log(games)
+
+  const getPlatformIcon = (platform) => {
+    switch (platform) {
+      case 'PC (Windows)': return <Icon as={IoLogoWindows} w={6} h={6} color='gray.50' />;
+      case 'Web Browser': return <Icon as={BiWorld} w={6} h={6} color='gray.50' />;
+    }
+  }
+
   return (
     <Flex
       flexWrap='wrap'
@@ -65,9 +77,32 @@ const Home = () => {
             pt={1.5}
             pb={3}
           >
-            <Text fontWeight='bold'>
-              {game.title}
-            </Text>
+            <Flex justifyContent='space-between'>
+              <Text fontWeight='bold'>
+                {game.title}
+              </Text>
+
+              {favorite === game.id ? (
+                <Icon
+                  as={AiFillStar}
+                  w={5}
+                  h={5}
+                  color='gray.50'
+                  _hover={{ cursor: 'pointer' }}
+                  onClick={() => setFavorite(game.id)}
+                />
+              ) : (
+                <Icon
+                  as={AiOutlineStar}
+                  w={5}
+                  h={5}
+                  color='gray.50'
+                  _hover={{ cursor: 'pointer' }}
+                  onClick={() => setFavorite(game.id)}
+                />
+              )}
+
+            </Flex>
 
             <Text fontSize='sm'>
               {game.short_description.length > 80
@@ -75,21 +110,34 @@ const Home = () => {
                 : game.short_description}
             </Text>
 
-            <Flex alignItems='center' justifyContent='space-between'>
-              <Text
-                p={1}
-                fontSize='2xs'
-                bg='gray.600'
-                borderRadius={8}
-              >
-                {game.genre}
-              </Text>
+            <Flex
+              alignItems='center'
+              justifyContent='space-between'
+            >
+              <HStack>
+                <Text
+                  p={0.5}
+                  fontSize='2xs'
+                  bg='gray.600'
+                  borderRadius={4}
+                >
+                  {game.genre}
+                </Text>
+                <Text
+                  p={0.5}
+                  fontSize='2xs'
+                  bg='blue'
+                  borderRadius={4}
+                >
+                  Free
+                </Text>
+              </HStack>
 
               <Text
                 fontSize='2xs'
                 borderRadius={8}
               >
-                {game.platform}
+                {getPlatformIcon(game.platform)}
               </Text>
             </Flex>
           </Flex>
