@@ -8,35 +8,39 @@ const Home = () => {
   useEffect(() => {
     Axios.get("https://www.freetogame.com/api/games").then(
       (response) => {
-        setGames(response.data.slice(24, 42))
+        setGames(response.data.slice(14, 32))
       }
     );
   }, [])
   console.log(games)
   return (
     <Flex
-      direction='row'
       flexWrap='wrap'
       justifyContent='center'
     >
       {games.map((game, index) =>
-        <Box
-          key={index}
-          m={5}
+        <Flex
+          key={game.id || index}
+          direction='column'
+          w={80}
+          h={78}
+          m={4}
+          bg='gray.900'
+          borderWidth={1}
+          borderColor='purple.900'
+          borderRadius={16}
+          boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'
           transition='350ms'
           _hover={{
             transition: '350ms',
             transform: 'scale(1.07)'
           }}
         >
-          <Box
-            bg='gray.900'
-            borderWidth={1}
-            borderColor='purple.900'
-            borderRadius={16}
-            boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'
-          >
 
+          <Box
+            borderBottomWidth={1}
+            borderColor='purple.900'
+          >
             <Link
               href={game.game_url}
               _active={{
@@ -46,59 +50,50 @@ const Home = () => {
                 textDecoration: 'none'
               }}
             >
-              <Box
-                borderBottomWidth={1}
-                borderColor='purple.900'
-              >
-                <Image
-                  w={80}
-                  borderTopRadius={16}
-                  src={game.thumbnail}
-                />
-              </Box>
+              <Image
+                borderTopRadius={16}
+                src={game.thumbnail}
+              />
             </Link>
+          </Box>
 
-            <Box px={3} pb={3}>
-              <Text fontWeight='bold' my={2}>
-                {game.title}
+          <Flex
+            h='100%'
+            direction='column'
+            justifyContent='space-between'
+            px={3}
+            pt={1.5}
+            pb={3}
+          >
+            <Text fontWeight='bold'>
+              {game.title}
+            </Text>
+
+            <Text fontSize='sm'>
+              {game.short_description.length > 80
+                ? game.short_description.substring(0, 80) + '...'
+                : game.short_description}
+            </Text>
+
+            <Flex alignItems='center' justifyContent='space-between'>
+              <Text
+                p={1}
+                fontSize='2xs'
+                bg='gray.600'
+                borderRadius={8}
+              >
+                {game.genre}
               </Text>
 
-              <Flex
-                direction='column'
-                alignItems='flex-start'
-                justifyContent='space-between'
-                height={20}
+              <Text
+                fontSize='2xs'
+                borderRadius={8}
               >
-                <Text maxWidth={74} fontSize='sm'>
-                  {game.short_description.length > 80
-                    ? game.short_description.substring(0, 80) + '...'
-                    : game.short_description}
-                </Text>
-
-                <Flex width='100%' justifyContent='space-between'>
-                  <Text
-                    p={1}
-                    fontSize='2xs'
-                    bg='gray.600'
-                    borderRadius={8}
-                  >
-                    {game.genre}
-                  </Text>
-
-                  <Text
-                    p={1}
-                    fontSize='2xs'
-                    // bg='gray.600'
-                    borderRadius={8}
-                  >
-                    {game.platform}
-                  </Text>
-                </Flex>
-              </Flex>
-            </Box>
-
-          </Box>
-        </Box>
+                {game.platform}
+              </Text>
+            </Flex>
+          </Flex>
+        </Flex>
       )}
     </Flex>
   );
