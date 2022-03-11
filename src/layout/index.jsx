@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Button, Divider, Flex, Heading, Input, InputGroup, InputLeftAddon, InputRightAddon, Icon, HStack, Text, Image } from "@chakra-ui/react";
-import { AiOutlineSearch, AiOutlineLogout } from 'react-icons/ai'
+import { Box, Button, Divider, Flex, Input, InputGroup, InputRightAddon, Icon, HStack, Text, Image, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { AiOutlineSearch } from 'react-icons/ai'
 import { IoExitOutline, IoPersonOutline } from 'react-icons/io5'
 import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png"
@@ -29,7 +29,20 @@ const Layout = ({ children }) => {
         >
           <Image w={70} src={Logo} />
 
-          <Text>Games</Text>
+          <Menu>
+            {({ isOpen }) => (
+              <>
+                <MenuButton isActive={isOpen} >
+                  Games
+                </MenuButton>
+                <MenuList borderColor='purple.900' bg='gray.700'>
+                  <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>MMO</MenuItem>
+                  <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>Shooter</MenuItem>
+                  <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>Card Game</MenuItem>
+                </MenuList>
+              </>
+            )}
+          </Menu>
 
           <Text>Favorites</Text>
 
