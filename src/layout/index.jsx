@@ -30,18 +30,14 @@ const Layout = ({ children }) => {
           <Image w={70} src={Logo} />
 
           <Menu>
-            {({ isOpen }) => (
-              <>
-                <MenuButton isActive={isOpen} >
-                  Games
-                </MenuButton>
-                <MenuList borderColor='purple.900' bg='gray.700'>
-                  <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>MMO</MenuItem>
-                  <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>Shooter</MenuItem>
-                  <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>Card Game</MenuItem>
-                </MenuList>
-              </>
-            )}
+            <MenuButton>
+              Games
+            </MenuButton>
+            <MenuList borderColor='purple.900' bg='gray.700'>
+              <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>MMO</MenuItem>
+              <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>Shooter</MenuItem>
+              <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>Card Game</MenuItem>
+            </MenuList>
           </Menu>
 
           <Text>Favorites</Text>

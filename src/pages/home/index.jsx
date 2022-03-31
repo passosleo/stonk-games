@@ -1,149 +1,49 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Box, Flex, Image, Link, Text, Icon, HStack } from "@chakra-ui/react";
-import { IoLogoWindows } from 'react-icons/io5';
-import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
-import { BiWorld } from 'react-icons/bi';
+import { Box, Flex } from "@chakra-ui/react";
+import GameCard from "../../components/GameCard";
+import FilterButton from "../../components/FilterButton";
 
 const Home = () => {
   const [games, setGames] = useState([]);
-  const [favorite, setFavorite] = useState(null);
+  const [filter, setFilter] = useState("");
+  const [chande, setChange] = useState("");
+  // console.log(filter);
 
   useEffect(() => {
-    Axios.get("https://www.freetogame.com/api/games?platform=all").then(
+    Axios.get("https://www.freetogame.com/api/games?platform=all&sort-by=popularity").then(
       (response) => {
         setGames(response.data.slice(14, 32))
       }
     );
   }, [])
-  console.log(games)
 
-  const getPlatformIcon = (platform) => {
-    switch (platform) {
-      case 'PC (Windows)': return <Icon as={IoLogoWindows} w={6} h={6} color='gray.50' />;
-      case 'Web Browser': return <Icon as={BiWorld} w={6} h={6} color='gray.50' />;
-    }
-  }
+  useEffect(() => {
+    Axios.get(`https://www.freetogame.com/api/games?platform=all&sort-by=${filter}`).then(
+      (response) => {
+        setGames(response.data.slice(14, 32))
+      }
+    );
+  }, [filter])
+
 
   return (
-    <Flex
-      flexWrap='wrap'
-      justifyContent='center'
-    >
-      {games.map((game, index) =>
-        <Flex
-          key={game.id || index}
-          direction='column'
-          w={80}
-          h={78}
-          m={4}
-          bg='gray.900'
-          borderWidth={1}
-          borderColor='purple.900'
-          borderRadius={16}
-          boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'
-          transition='350ms'
-          _hover={{
-            transition: '350ms',
-            transform: 'scale(1.07)'
-          }}
-        >
-
-          <Box
-            borderBottomWidth={1}
-            borderColor='purple.900'
-          >
-            <Link
-              href={game.game_url}
-              _active={{
-                boxShadow: 'none'
-              }}
-              _hover={{
-                textDecoration: 'none'
-              }}
-            >
-              <Image
-                borderTopRadius={16}
-                src={game.thumbnail}
-              />
-            </Link>
-          </Box>
-
-          <Flex
-            h='100%'
-            direction='column'
-            justifyContent='space-between'
-            px={3}
-            pt={1.5}
-            pb={3}
-          >
-            <Flex justifyContent='space-between'>
-              <Text fontWeight='bold'>
-                {game.title}
-              </Text>
-
-              {favorite === game.id ? (
-                <Icon
-                  as={AiFillStar}
-                  w={5}
-                  h={5}
-                  color='gray.50'
-                  _hover={{ cursor: 'pointer' }}
-                  onClick={() => setFavorite(game.id)}
-                />
-              ) : (
-                <Icon
-                  as={AiOutlineStar}
-                  w={5}
-                  h={5}
-                  color='gray.50'
-                  _hover={{ cursor: 'pointer' }}
-                  onClick={() => setFavorite(game.id)}
-                />
-              )}
-
-            </Flex>
-
-            <Text fontSize='sm'>
-              {game.short_description.length > 80
-                ? game.short_description.substring(0, 80) + '...'
-                : game.short_description}
-            </Text>
-
-            <Flex
-              alignItems='center'
-              justifyContent='space-between'
-            >
-              <HStack>
-                <Text
-                  p={0.5}
-                  fontSize='2xs'
-                  bg='gray.600'
-                  borderRadius={4}
-                >
-                  {game.genre}
-                </Text>
-                <Text
-                  p={0.5}
-                  fontSize='2xs'
-                  bg='blue'
-                  borderRadius={4}
-                >
-                  Free
-                </Text>
-              </HStack>
-
-              <Text
-                fontSize='2xs'
-                borderRadius={8}
-              >
-                {getPlatformIcon(game.platform)}
-              </Text>
-            </Flex>
-          </Flex>
-        </Flex>
-      )}
-    </Flex>
+    <Box>
+      <Flex>
+        <FilterButton setFilter={setFilter} />
+      </Flex>
+      <Flex
+        flexWrap='wrap'
+        justifyContent='center'
+      >
+        {games.map((game, index) =>
+          <GameCard
+            key={game.id || index}
+            {...game}
+          />
+        )}
+      </Flex>
+    </Box>
   );
 };
 
