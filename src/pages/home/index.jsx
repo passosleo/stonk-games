@@ -10,9 +10,9 @@ const Home = () => {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    Axios.get(`https://www.freetogame.com/api/games?platform=all&sort-by=${filter ? filter : "popularity"} `).then(
+    Axios.get(`https://www.freetogame.com/api/games?platform=all&sort-by=${filter ? filter : "popularity"}`).then(
       (response) => {
-        setGames(response.data.slice(14, 32))
+        setGames(response.data.slice(14,28))
       }
     );
   }, [filter])
@@ -25,12 +25,6 @@ const Home = () => {
           onHeader={false}
           icon={AiOutlineSortAscending}
           setFilter={setFilter}
-          options={[
-            {id: 1, label: "Alphabetical"},
-            {id: 2, label: "Popularity"},
-            {id: 3, label: "Release-Date"},
-            {id: 4, label: "Relevant"}
-          ]}
         />
       </Flex>
       <Flex

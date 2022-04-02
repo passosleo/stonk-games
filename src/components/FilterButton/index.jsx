@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { Box, Flex, Link, Image, Button, Icon, Text, HStack, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { IoLogoWindows } from 'react-icons/io5';
-import { BiWorld } from 'react-icons/bi';
+import React from "react";
+import { Button, Icon, Menu, MenuButton } from "@chakra-ui/react";
+import ListMenu from '../ListMenu'
 
-const FilterButton = ({ title, icon, options, setFilter }) => {
-  console.log(options)
+const FilterButton = ({ title, icon, setFilter }) => {
   return (
     <Menu>
       <MenuButton
@@ -23,18 +21,15 @@ const FilterButton = ({ title, icon, options, setFilter }) => {
       >
         {title}
       </MenuButton>
-      <MenuList borderColor='purple.900' bg='gray.700'>
-        {options.map((option, index) => (
-          <MenuItem
-            key={option.id || index}
-            _hover={{ background: 'purple.900' }}
-            _focus={{ background: 'purple.900' }}
-            onClick={() => setFilter(option.label.toLowerCase())}
-          >
-            {option.label}
-          </MenuItem>
-        ))}
-      </MenuList>
+      <ListMenu 
+        setFilter={setFilter}
+        options={[
+          {id: 1, label: "Alphabetical"},
+          {id: 2, label: "Popularity"},
+          {id: 3, label: "Release-Date"},
+          {id: 4, label: "Relevant"}
+        ]} 
+      />
     </Menu>
   );
 };

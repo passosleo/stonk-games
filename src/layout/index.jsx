@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Button, Divider, Flex, Input, InputGroup, InputRightAddon, Icon, HStack, Text, Image, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { AiOutlineSearch } from 'react-icons/ai'
+import { Box, Divider, Flex, Icon, HStack, Text, Image, Menu, MenuButton, } from "@chakra-ui/react";
 import { IoExitOutline, IoPersonOutline } from 'react-icons/io5'
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png"
+import ListMenu from "../components/ListMenu";
+import SearchInput from "../components/SearchInput";
 
 const Layout = ({ children }) => {
   return (
@@ -33,41 +34,28 @@ const Layout = ({ children }) => {
             <MenuButton>
               Games
             </MenuButton>
-            <MenuList borderColor='purple.900' bg='gray.700'>
-              <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>MMO</MenuItem>
-              <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>Shooter</MenuItem>
-              <MenuItem _hover={{ background: 'purple.900' }} _focus={{ background: 'purple.900' }}>Card Game</MenuItem>
-            </MenuList>
+            <ListMenu
+              options={[
+                { id: 1, label: "MMO" },
+                { id: 2, label: "Shooter" },
+                { id: 3, label: "Card Game" },
+                { id: 4, label: "Strategy" }
+              ]}
+            />
           </Menu>
 
           <Text>Favorites</Text>
 
-          <InputGroup
-            size='sm'
-            w={80}
-            borderColor='purple.900'
-          >
-            <Input
-              placeholder='Pesquisar'
-              bg='gray.50'
-              color='gray.900'
-              borderRadius={8}
-            />
-            <InputRightAddon
-              borderRadius={8}
-              bg='purple.900'
-              children={
-                <Icon as={AiOutlineSearch} w={5} h={5} color='gray.50' />
-              }
-            />
-          </InputGroup>
+          <SearchInput />
 
           <HStack spacing={5} h='100%'>
             <HStack>
               <Text>Profile</Text>
               <Icon as={IoPersonOutline} w={4.5} h={4.5} color='gray.50' />
             </HStack>
+
             <Divider orientation='vertical' h='25%' />
+
             <HStack>
               <Text>Logout</Text>
               <Icon as={IoExitOutline} w={5.5} h={5.5} color='gray.50' />

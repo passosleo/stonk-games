@@ -3,18 +3,18 @@ import { Box, Flex, Link, Image, Icon, Text, HStack } from "@chakra-ui/react";
 import { IoLogoWindows } from 'react-icons/io5';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { BiWorld } from 'react-icons/bi';
+import Tag from "./Tag";
 
 const GameCard = (game) => {
   const [favorite, setFavorite] = useState(null);
-
-  // console.log(game)
 
   const getPlatformIcon = (platform) => {
     switch (platform) {
       case 'PC (Windows)': return <Icon as={IoLogoWindows} w={6} h={6} color='gray.50' />;
       case 'Web Browser': return <Icon as={BiWorld} w={6} h={6} color='gray.50' />;
-    }
-  }
+      default: return null;
+    };
+  };
 
   return (
     <Flex
@@ -89,30 +89,11 @@ const GameCard = (game) => {
           justifyContent='space-between'
         >
           <HStack>
-            <Text
-              p={0.5}
-              fontSize='2xs'
-              bg='gray.600'
-              borderRadius={4}
-            >
-              {game.genre}
-            </Text>
-            <Text
-              p={0.5}
-              fontSize='2xs'
-              bg='blue'
-              borderRadius={4}
-            >
-              Free
-            </Text>
+            <Tag title={game.genre} color="gray.600" />
+            <Tag title="Free" color="blue" />
           </HStack>
 
-          <Text
-            fontSize='2xs'
-            borderRadius={8}
-          >
-            {getPlatformIcon(game.platform)}
-          </Text>
+          {getPlatformIcon(game.platform)}
         </Flex>
       </Flex>
     </Flex>
