@@ -3,28 +3,28 @@ import Axios from "axios";
 import { Box, Flex } from "@chakra-ui/react";
 import { AiOutlineSortAscending } from 'react-icons/ai';
 import GameCard from "../../components/GameCard";
-import FilterButton from "../../components/FilterButton";
+import SortButton from "../../components/SortButton";
 
 const Home = () => {
   const [games, setGames] = useState([]);
-  const [filter, setFilter] = useState("");
+  const [sort, setSort] = useState("");
 
   useEffect(() => {
-    Axios.get(`https://www.freetogame.com/api/games?platform=all&sort-by=${filter ? filter : "popularity"}`).then(
+    Axios.get(`https://www.freetogame.com/api/games?platform=all&sort-by=${sort ? sort : "popularity"}`).then(
       (response) => {
         setGames(response.data.slice(14,28))
       }
     );
-  }, [filter])
+  }, [sort]);
 
   return (
     <Box>
       <Flex>
-        <FilterButton
-          title="Filter"
+        <SortButton
+          title="Sort"
           onHeader={false}
           icon={AiOutlineSortAscending}
-          setFilter={setFilter}
+          setSort={setSort}
         />
       </Flex>
       <Flex

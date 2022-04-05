@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Divider, Flex, Icon, HStack, Text, Image, Menu, MenuButton, } from "@chakra-ui/react";
+import { Box, Divider, Flex, Icon, HStack, Text, Image } from "@chakra-ui/react";
 import { IoExitOutline, IoPersonOutline } from 'react-icons/io5'
+import { AiOutlineStar } from 'react-icons/ai';
 // import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png"
-import ListMenu from "../components/ListMenu";
 import SearchInput from "../components/SearchInput";
 
 const Layout = ({ children }) => {
@@ -30,31 +30,22 @@ const Layout = ({ children }) => {
         >
           <Image w={70} src={Logo} />
 
-          <Menu>
-            <MenuButton>
-              Games
-            </MenuButton>
-            <ListMenu
-              options={[
-                { id: 1, label: "MMO" },
-                { id: 2, label: "Shooter" },
-                { id: 3, label: "Card Game" },
-                { id: 4, label: "Strategy" }
-              ]}
-            />
-          </Menu>
-
-          <Text>Favorites</Text>
-
           <SearchInput />
 
           <HStack spacing={5} h='100%'>
+            <HStack>
+              <Text>Favorites</Text>
+              <Icon as={AiOutlineStar} w={5.5} h={5.5} color='gray.50' />
+            </HStack>
+
+            <Divider orientation='vertical' h='25%' opacity={0.2}/>
+
             <HStack>
               <Text>Profile</Text>
               <Icon as={IoPersonOutline} w={4.5} h={4.5} color='gray.50' />
             </HStack>
 
-            <Divider orientation='vertical' h='25%' />
+            <Divider orientation='vertical' h='25%' opacity={0.2}/>
 
             <HStack>
               <Text>Logout</Text>
