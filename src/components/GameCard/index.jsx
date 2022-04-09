@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Flex, Link, Image, Icon, Text, HStack } from "@chakra-ui/react";
+import { Box, Flex, Link, Image, Icon, Text, HStack, Skeleton } from "@chakra-ui/react";
 import { IoLogoWindows } from 'react-icons/io5';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { BiWorld } from 'react-icons/bi';
@@ -7,6 +7,7 @@ import Tag from "./Tag";
 
 const GameCard = (game) => {
   const [favorite, setFavorite] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const getPlatformIcon = (platform) => {
     switch (platform) {
@@ -47,10 +48,19 @@ const GameCard = (game) => {
             textDecoration: 'none'
           }}
         >
-          <Image
+          <Skeleton
+            height={45}
             borderTopRadius={16}
-            src={game.thumbnail}
-          />
+            startColor='purple.900'
+            endColor='gray.900'
+            isLoaded={isLoaded}
+          >
+            <Image
+              borderTopRadius={16}
+              src={game.thumbnail}
+              onLoad={() => setIsLoaded(true)}
+            />
+          </Skeleton>
         </Link>
       </Box>
 

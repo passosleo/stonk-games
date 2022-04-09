@@ -8,6 +8,7 @@ const SortButton = ({ title, icon, setSort }) => {
       <MenuButton
         as={Button}
         rightIcon={<Icon as={icon} w={6} h={6} />}
+        minWidth={25}
         backgroundColor="gray.900"
         borderWidth={1}
         borderColor='purple.900'
