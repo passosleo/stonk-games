@@ -20,8 +20,8 @@ const GameCard = (game) => {
   return (
     <Flex
       direction='column'
-      w={80}
-      h={78}
+      w={67}
+      h={75}
       m={4}
       bg='gray.900'
       borderWidth={1}
@@ -49,7 +49,6 @@ const GameCard = (game) => {
           }}
         >
           <Skeleton
-            height={45}
             borderTopRadius={16}
             startColor='purple.900'
             endColor='gray.900'

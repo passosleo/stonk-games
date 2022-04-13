@@ -1,8 +1,15 @@
-import React, { useState } from "react";
-import { Box, Flex, Link, Image, Button, Icon, Text, HStack, Menu, MenuButton, MenuList, MenuItem, Tag } from "@chakra-ui/react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
+import { Flex, Tag } from "@chakra-ui/react";
 
-const CategorieTag = ({ categories, setCategorie }) => {
-  const [selected, setSelected] = useState();
+const CategorieTag = forwardRef(({ categories, setCategorie }, ref) => {
+  const [selected, setSelected] = useState("");
+
+  useImperativeHandle(ref, () => ({
+    clearSelectedTag() {
+      setSelected("");
+    },
+  }));
+
   return (
     <Flex flexWrap="wrap">
       {categories.map((item, index) => (
@@ -19,11 +26,6 @@ const CategorieTag = ({ categories, setCategorie }) => {
           boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'
           transition='200ms'
           transform={selected === item.label ? 'scale(1.20)' : 'scale(1)'}
-          
-          // _hover={{
-          //   transition: '200ms',
-          //   transform: 'scale(1.07)'
-          // }}
           onClick={() => {
             setCategorie(item.label.toLowerCase());
             setSelected(item.label)
@@ -34,6 +36,6 @@ const CategorieTag = ({ categories, setCategorie }) => {
       ))}
     </Flex>
   );
-};
+});
 
 export default CategorieTag;

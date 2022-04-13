@@ -2,9 +2,9 @@ import React from "react";
 import { Button, Icon, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { sortOptions } from "../../static/data";
 
-const SortButton = ({ title, icon, setSort }) => {
+const SortButton = ({ title, icon, setSort, style }) => {
   return (
-    <Menu maxWidth={35}>
+    <Menu maxWidth={35} {...style}>
       <MenuButton
         as={Button}
         rightIcon={<Icon as={icon} w={6} h={6} />}

@@ -55,9 +55,9 @@ const Layout = ({ children }) => {
         </Flex>
 
       </Flex>
-      <Box bg='gray.800' mt={20} p={10}>
+      <Flex justifyContent="center" bg='gray.800' mt={20} p={10}>
         {children}
-      </Box>
+      </Flex>
     </Box>
   );
 };

@@ -24,6 +24,7 @@ export const colors = {
     900: '#171923',
   },
   blue: '#3f76bf',
+  red: '#890F0D',
   white: '#ffffff',
   black: '#000000',
 };
