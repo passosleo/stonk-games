@@ -13,7 +13,12 @@ const GameCard = (game) => {
     switch (platform) {
       case 'PC (Windows)': return <Icon as={IoLogoWindows} w={6} h={6} color='gray.50' />;
       case 'Web Browser': return <Icon as={BiWorld} w={6} h={6} color='gray.50' />;
-      default: return null;
+      default: return (
+        <>
+          <Icon as={IoLogoWindows} w={6} h={6} color='gray.50' />
+          <Icon as={BiWorld} w={6} h={6} color='gray.50' />
+        </>
+      );
     };
   };
 
@@ -58,6 +63,7 @@ const GameCard = (game) => {
               borderTopRadius={16}
               src={game.thumbnail}
               onLoad={() => setIsLoaded(true)}
+              alt="Game Cover"
             />
           </Skeleton>
         </Link>
@@ -101,8 +107,9 @@ const GameCard = (game) => {
             <Tag title={game.genre} color="gray.600" />
             <Tag title="Free" color="blue" />
           </HStack>
-
-          {getPlatformIcon(game.platform)}
+          <HStack>
+            {getPlatformIcon(game.platform)}
+          </HStack>
         </Flex>
       </Flex>
     </Flex>

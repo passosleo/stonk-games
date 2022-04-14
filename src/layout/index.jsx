@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
         top={0}
         left={0}
         right={0}
-        zIndex={1}
+        zIndex={10}
         borderBottomWidth={1}
         borderColor='purple.900'
         justifyContent='center'
@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
           px='5%'
           maxWidth='1440px'
         >
-          <Image w={70} src={Logo} />
+          <Image w={70} src={Logo} alt="Website Logo" />
 
           <SearchInput />
 
@@ -55,7 +55,7 @@ const Layout = ({ children }) => {
         </Flex>
 
       </Flex>
-      <Flex justifyContent="center" bg='gray.800' mt={20} p={10}>
+      <Flex minHeight="calc(100vh - 80px)" justifyContent="center" bg='gray.800' mt={20} p={10}>
         {children}
       </Flex>
     </Box>

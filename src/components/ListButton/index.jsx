@@ -1,13 +1,13 @@
 import React from "react";
-import { Button, Icon, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { sortOptions } from "../../static/data";
+import { Button, Menu, MenuButton, MenuList, MenuItem, Text } from "@chakra-ui/react";
 
-const SortButton = ({ title, icon, setSort, style }) => {
+
+const ListButton = ({ title, icon, data , onClick }) => {
   return (
-    <Menu maxWidth={35} {...style}>
+    <Menu maxWidth={35} >
       <MenuButton
         as={Button}
-        rightIcon={<Icon as={icon} w={6} h={6} />}
+        rightIcon={icon}
         minWidth={25}
         backgroundColor="gray.900"
         borderWidth={1}
@@ -25,23 +25,24 @@ const SortButton = ({ title, icon, setSort, style }) => {
       
       <MenuList 
         borderColor='purple.900'
+        borderRadius={12}
         bg='gray.700'
         px={1.5}
       >
-        {sortOptions.map((option, index) => (
+        {data ? data.map((option, index) => (
           <MenuItem
             key={option.id || index}
             borderRadius={12}
             _hover={{ background: 'gray.600' }}
             _focus={{ background: 'gray.600' }}
-            onClick={() => setSort(option.label.toLowerCase())}
+            onClick={() => onClick(option.label.toLowerCase())}
           >
             {option.label}
           </MenuItem>
-        ))}
+        )) : <Text>No content</Text>}
       </MenuList>
     </Menu>
   );
 };
 
-export default SortButton;
+export default ListButton;

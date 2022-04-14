@@ -5,6 +5,11 @@ export const sortOptions = [
   {id: 4, label: "Relevant"}
 ]
 
+export const platforms = [
+  {id: 1, label: "Windows"},
+  {id: 2, label: "Browser"},
+]
+
 export const categories = [
   { id: 1, label: "2D" },
   { id: 2, label: "3D" },

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Button, Flex, Tag } from "@chakra-ui/react";
+import React from "react";
+import { Button } from "@chakra-ui/react";
 
-const SimpleButton = ({ title, icon, onClick }) => {
+const SimpleButton = ({ title, icon, onClick, actionColor }) => {
   return (
     <Button
       rightIcon={icon}
@@ -11,12 +11,12 @@ const SimpleButton = ({ title, icon, onClick }) => {
       borderColor='purple.900'
       boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'
       _active={{
-        backgroundColor: "red",
-        borderColor: "red"
+        backgroundColor: actionColor,
+        borderColor: actionColor
       }}
       _hover={{
-        backgroundColor: "red",
-        borderColor: "red"
+        backgroundColor: actionColor,
+        borderColor: actionColor
       }}
       onClick={onClick}
     >
