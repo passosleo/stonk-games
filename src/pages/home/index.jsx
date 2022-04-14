@@ -19,15 +19,15 @@ const Home = () => {
   useEffect(() => {
     axios.get("https://www.freetogame.com/api/games?"
       + `platform=${platform ? platform === "windows" ? "pc" : platform : "all"}`
-      +  `${categorie && "&category=" + categorie}`
+      + `${categorie && "&category=" + categorie}`
       + `&sort-by=${sort ? sort : "popularity"}`)
-    .then((response) => {
-      setGames(response.data.slice(0, 16));
-      console.log(response.data.slice(0, 16))
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((response) => {
+        setGames(response.data.slice(0, 16));
+        console.log(response.data.slice(0, 16))
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [sort, categorie, platform]);
 
   const clearFilters = () => {
@@ -45,38 +45,43 @@ const Home = () => {
         ref={selectedTag}
       />
       <Flex alignItems="center" my={5}>
-        <Text 
-          flex={1} 
-          fontSize="xl" 
+        <Text
+          flex={1}
+          fontSize="xl"
           fontWeight="bold"
         >
           Listing {games.length} free games
         </Text>
 
-        <Grid templateColumns='repeat(3, auto)' gap={2}>
+        <Grid templateColumns='repeat(3, auto)' gap={3}>
           <ListButton
             title="Sort"
-            icon={<Icon as={AiOutlineSortAscending} w={6} h={6} />}
+            icon={<Icon as={AiOutlineSortAscending} w={5} h={5} />}
             data={sortOptions}
             onClick={setSort}
+            isSelected={sort}
           />
           <ListButton
             title="Platform"
-            icon={<Icon as={IoGameControllerOutline} w={6} h={6} />}
+            icon={<Icon as={IoGameControllerOutline} w={5} h={5} />}
             data={platforms}
             onClick={setPlatform}
+            isSelected={platform}
           />
-          <SimpleButton
-            title="Clear Filters"
-            icon={<Icon as={AiOutlineClose} w={4} h={4} />}
-            actionColor="red"
-            onClick={() => clearFilters()}
-          />
+          {(categorie || sort || platform) &&
+            <SimpleButton
+              title="Clear"
+              icon={<Icon as={AiOutlineClose} w={4} h={4} />}
+              actionColor="red"
+              onClick={() => clearFilters()}
+            />
+          }
         </Grid>
       </Flex>
       <Flex
         flexWrap='wrap'
         justifyContent='center'
+        transition='800ms'
       >
         {games.map((game, index) =>
           <GameCard

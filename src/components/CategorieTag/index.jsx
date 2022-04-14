@@ -19,8 +19,9 @@ const CategorieTag = forwardRef(({ categories, setCategorie }, ref) => {
           m={1.5}
           mx={selected === item.label ? 3 : 1.5}
           borderWidth={selected === item.label ? 1 : 0}
+          borderColor="gray.50"
           fontWeight={selected === item.label ? 'bold' : 'normal'}
-          color="white"
+          color="gray.50"
           bg="purple.900"
           cursor="pointer"
           boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'
