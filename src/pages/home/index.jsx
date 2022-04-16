@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Box, Flex, Grid, Icon, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Icon, Spinner, Text } from "@chakra-ui/react";
 import { AiOutlineSortAscending, AiOutlineClose } from 'react-icons/ai';
 import { IoGameControllerOutline } from 'react-icons/io5';
 import { categories, platforms, sortOptions } from "../../static/data"
@@ -12,7 +12,7 @@ import Pagination from "../../components/Pagination";
 
 const Home = () => {
   const [games, setGames] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [sort, setSort] = useState("");
   const [categorie, setCategorie] = useState("");
   const [platform, setPlatform] = useState("");
@@ -37,19 +37,19 @@ const Home = () => {
     });
   };
 
-  useEffect(() => {
-    axios.get("https://www.freetogame.com/api/games?"
+  const fetchGames = async () => {
+    setLoading(true);
+    const res = await axios.get("https://www.freetogame.com/api/games?"
       + `platform=${platform ? platform === "windows" ? "pc" : platform : "all"}`
       + `${categorie && "&category=" + categorie}`
-      + `&sort-by=${sort ? sort : "popularity"}`)
-      .then((response) => {
-        setGames(response.data);
-        setCurrentPage(1);
-        // console.log(response.data)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      + `&sort-by=${sort ? sort : "popularity"}`);
+    setGames(res.data);
+    setCurrentPage(1);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchGames();
   }, [sort, categorie, platform]);
 
   const clearFilters = () => {
@@ -61,7 +61,6 @@ const Home = () => {
 
   return (
     <Box maxWidth="1200px">
-
       <CategorieTag
         categories={categories}
         setCategorie={setCategorie}
@@ -103,25 +102,32 @@ const Home = () => {
         </Grid>
       </Flex>
 
-      <Flex
-        flexWrap='wrap'
-        // justifyContent='center'
-        transition='800ms'
-      >
-        {currentGames.map((game, index) =>
-          <GameCard
-            key={game.id || index}
-            {...game}
-          />
-        )}
-      </Flex>
+      {!loading ? (
+        <>
+          <Flex
+            flexWrap='wrap'
+            transition='800ms'
+          >
+            {currentGames.map((game, index) =>
+              <GameCard
+                key={game.id || index}
+                {...game}
+              />
+            )}
+          </Flex>
 
-      <Pagination
-        gamesPerPage={gamesPerPage}
-        totalGames={games.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
+          <Pagination
+            gamesPerPage={gamesPerPage}
+            totalGames={games.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
+        </>
+      ) : (
+        <Flex justifyContent='center'>
+          <Spinner my={20} size='xl' color="purple.900" />
+        </Flex>
+      )}
     </Box>
   );
 };
