@@ -44,6 +44,7 @@ const Home = () => {
       + `&sort-by=${sort ? sort : "popularity"}`)
       .then((response) => {
         setGames(response.data);
+        setCurrentPage(1);
         // console.log(response.data)
       })
       .catch((error) => {
