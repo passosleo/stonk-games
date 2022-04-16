@@ -8,13 +8,34 @@ import GameCard from "../../components/GameCard";
 import ListButton from "../../components/ListButton";
 import CategorieTag from "../../components/CategorieTag";
 import SimpleButton from "../../components/SimpleButton";
+import Pagination from "../../components/Pagination";
 
 const Home = () => {
   const [games, setGames] = useState([]);
+  // const [loading, setLoading] = useState(false);
   const [sort, setSort] = useState("");
   const [categorie, setCategorie] = useState("");
   const [platform, setPlatform] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [gamesPerPage] = useState(20);
+
   const selectedTag = useRef(null);
+
+  const indexOfLastGame = currentPage * gamesPerPage;
+  const indexOfFirstGame = indexOfLastGame - gamesPerPage;
+  const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    scrollToTop();
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
 
   useEffect(() => {
     axios.get("https://www.freetogame.com/api/games?"
@@ -22,8 +43,8 @@ const Home = () => {
       + `${categorie && "&category=" + categorie}`
       + `&sort-by=${sort ? sort : "popularity"}`)
       .then((response) => {
-        setGames(response.data.slice(0, 16));
-        console.log(response.data.slice(0, 16))
+        setGames(response.data);
+        // console.log(response.data)
       })
       .catch((error) => {
         console.log(error);
@@ -39,11 +60,13 @@ const Home = () => {
 
   return (
     <Box maxWidth="1200px">
+
       <CategorieTag
         categories={categories}
         setCategorie={setCategorie}
         ref={selectedTag}
       />
+
       <Flex alignItems="center" my={5}>
         <Text
           flex={1}
@@ -78,18 +101,26 @@ const Home = () => {
           }
         </Grid>
       </Flex>
+
       <Flex
         flexWrap='wrap'
         justifyContent='center'
         transition='800ms'
       >
-        {games.map((game, index) =>
+        {currentGames.map((game, index) =>
           <GameCard
             key={game.id || index}
             {...game}
           />
         )}
       </Flex>
+
+      <Pagination
+        gamesPerPage={gamesPerPage}
+        totalGames={games.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </Box>
   );
 };
