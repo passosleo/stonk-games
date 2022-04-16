@@ -37,18 +37,18 @@ const Home = () => {
     });
   };
 
-  const fetchGames = async () => {
-    setLoading(true);
-    const res = await axios.get("https://www.freetogame.com/api/games?"
-      + `platform=${platform ? platform === "windows" ? "pc" : platform : "all"}`
-      + `${categorie && "&category=" + categorie}`
-      + `&sort-by=${sort ? sort : "popularity"}`);
-    setGames(res.data);
-    setCurrentPage(1);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const fetchGames = async () => {
+      setLoading(true);
+      const res = await axios.get("https://www.freetogame.com/api/games?"
+        + `platform=${platform ? platform === "windows" ? "pc" : platform : "all"}`
+        + `${categorie && "&category=" + categorie}`
+        + `&sort-by=${sort ? sort : "popularity"}`);
+      setGames(res.data);
+      setCurrentPage(1);
+      setLoading(false);
+    };
+
     fetchGames();
   }, [sort, categorie, platform]);
 

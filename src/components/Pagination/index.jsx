@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, HStack } from "@chakra-ui/react";
 
 const Pagination = ({ gamesPerPage, totalGames, paginate, currentPage }) => {
