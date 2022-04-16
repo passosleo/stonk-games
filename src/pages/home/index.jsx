@@ -104,7 +104,7 @@ const Home = () => {
 
       <Flex
         flexWrap='wrap'
-        justifyContent='center'
+        // justifyContent='center'
         transition='800ms'
       >
         {currentGames.map((game, index) =>

@@ -10,7 +10,7 @@ const Pagination = ({ gamesPerPage, totalGames, paginate, currentPage }) => {
 
   return (
     <HStack my={10} justifyContent="center">
-      {pageNumbers.map(number => (
+      {pageNumbers.length > 1  && pageNumbers.map(number => (
         <Button
           key={number}
           bg={number === currentPage ? "purple.900" : "gray.900"}
