@@ -20,16 +20,16 @@ const CategorieTag = forwardRef(({ categories, setCategorie }, ref) => {
           mx={selected === item.label ? 3 : 1.5}
           borderWidth={selected === item.label ? 1 : 0}
           borderColor="gray.50"
-          fontWeight={selected === item.label ? 'bold' : 'normal'}
+          fontWeight={selected === item.label ? "bold" : "normal"}
           color="gray.50"
           bg="purple.900"
           cursor="pointer"
-          boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'
-          transition='200ms'
-          transform={selected === item.label ? 'scale(1.20)' : 'scale(1)'}
+          boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
+          transition="200ms"
+          transform={selected === item.label ? "scale(1.20)" : "scale(1)"}
           onClick={() => {
             setCategorie(item.label.toLowerCase());
-            setSelected(item.label)
+            setSelected(item.label);
           }}
         >
           {item.label}

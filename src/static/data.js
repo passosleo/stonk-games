@@ -1,14 +1,14 @@
 export const sortOptions = [
-  {id: 1, label: "Alphabetical"},
-  {id: 2, label: "Popularity"},
-  {id: 3, label: "Release-Date"},
-  {id: 4, label: "Relevant"}
-]
+  { id: 1, label: "Alphabetical" },
+  { id: 2, label: "Popularity" },
+  { id: 3, label: "Release-Date" },
+  { id: 4, label: "Relevant" },
+];
 
 export const platforms = [
-  {id: 1, label: "Windows"},
-  {id: 2, label: "Browser"},
-]
+  { id: 1, label: "Windows" },
+  { id: 2, label: "Browser" },
+];
 
 export const categories = [
   { id: 1, label: "2D" },
@@ -53,5 +53,5 @@ export const categories = [
   { id: 40, label: "Tower-Defense" },
   { id: 41, label: "Turn-Based" },
   { id: 42, label: "Voxel" },
-  { id: 43, label: "Zombie" }
-]
+  { id: 43, label: "Zombie" },
+];
