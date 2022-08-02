@@ -133,7 +133,7 @@ const Home = () => {
           />
         </>
       ) : !currentGames.length ? (
-        <h1>No games to show</h1>
+        <Text>No games to show</Text>
       ) : (
         <Flex justifyContent="center">
           <Spinner my={20} size="xl" color="purple.900" />
