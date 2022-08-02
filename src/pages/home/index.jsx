@@ -23,7 +23,9 @@ const Home = () => {
 
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-  const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
+  const currentGames = games.length
+    ? games.slice(indexOfFirstGame, indexOfLastGame)
+    : games;
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -86,7 +88,7 @@ const Home = () => {
 
       <Flex alignItems="center" my={5}>
         <Text flex={1} fontSize="xl" fontWeight="bold">
-          Listing {games.length} free games
+          Listing {games.length ? games.length : "0"} free games
         </Text>
 
         <Grid templateColumns="repeat(3, auto)" gap={3}>
@@ -115,7 +117,7 @@ const Home = () => {
         </Grid>
       </Flex>
 
-      {!loading ? (
+      {!loading && currentGames.length ? (
         <>
           <Flex flexWrap="wrap" transition="800ms">
             {currentGames.map((game, index) => (
@@ -130,6 +132,8 @@ const Home = () => {
             currentPage={currentPage}
           />
         </>
+      ) : !currentGames.length ? (
+        <h1>No games to show</h1>
       ) : (
         <Flex justifyContent="center">
           <Spinner my={20} size="xl" color="purple.900" />
